@@ -1,2 +1,2 @@
-# L2D
-This project was created to automate the receipt of donations
+# Documents Archive
+This project was created to automatic documentation
