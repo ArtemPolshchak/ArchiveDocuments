@@ -1,0 +1,10 @@
+<div>
+    <!-- MENU SIDEBAR-->
+    <app-sidebar *ngIf="authService.isLoggedIn()"></app-sidebar>
+
+    <!-- PAGE CONTAINER-->
+    <div class="page-container">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+

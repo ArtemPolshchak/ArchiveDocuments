@@ -1,0 +1,73 @@
+<div>
+    <h1>Documents</h1>
+    <div class="search">
+        <div class="row">
+            <div class="col">
+                <input type="text" name="search" class="search-input" placeholder="Name of Document or Category" matInput
+                       [(ngModel)]="name">
+            </div>
+            <div class="col-auto">
+                <input type="button" class="search-button" value="Search" (click)="applySearch()">
+            </div>
+        </div>
+        <div class="button" id="add_server">
+        </div>
+        <div>
+            <button *ngIf="isAdmin || isModerator" class="btn primary-button ms-2" (click)="goToCreateNewDocumentPage()">Add a new document</button>
+        </div>
+        <div>
+            <div class="d-flex">
+                <select class="form-select me-2" aria-label="Сорт" [(ngModel)]="sortState"
+                        (change)="sorting()">
+                    <option value="title,asc">Sort by Document from A to Z</option>
+                    <option value="title,desc">Sort by Document from Z to A</option>
+                    <option value="categoryId,asc">Sort by Category from A to Z</option>
+                    <option value="categoryId,desc">Sort by Category from Z to A</option>
+                    <option value="dateCreated,asc">Sort by Date from old to new</option>
+                    <option value="dateCreated,desc">Sort by Date from new to old</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div>
+    <div class="section">
+        <table>
+            <thead>
+            <tr>
+                <th>Name of the Document</th>
+                <th>Category name</th>
+                <th>Date of creation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let document of documents">
+                <td>{{ document.title }}</td>
+                <td>{{ document.category }}</td>
+                <td>{{ document.dateCreated }}</td>
+                <td>
+                    <button class="custom-button-history" (click)="goToUpdateDocumentPage(document)">
+                        Open
+                    </button>
+                </td>
+                <td>
+                    <button *ngIf="isAdmin || isModerator"  class="custom-button-history" (click)="deleteDocument(document)">
+                        Remove
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div>
+    <mat-paginator [length]="totalElements"
+                   [pageSize]="pageSize"
+                   [pageSizeOptions]="[5, 10, 25, 100]"
+                   [showFirstLastButtons]="true"
+                   (page)="onPageChange($event)">
+    </mat-paginator>
+</div>
+

@@ -1,0 +1,36 @@
+
+<div class="button-container">
+    <h2 class="title">
+        <button *ngIf="isAdmin || isModerator" class="btn primary-button ms-2" [disabled]="!form.valid || !selectedCategory || !documentName.trim()" (click)="selectedCategory && updateDocument(selectedCategory.id)">save</button>
+    </h2>
+    <form *ngIf="isAdmin || isModerator" class="example-form">
+        <mat-form-field class="example-full-width">
+            <input type="text"
+                   placeholder="search field"
+                   aria-label="category"
+                   matInput
+                   [formControl]="myControl"
+                   [matAutocomplete]="auto"
+                   [value]="selectedCategory ? selectedCategory.name : '' ">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async; trackBy: trackByFn" [value]="option.name" (onSelectionChange)="selectedCategory = option">{{ option.name }}</mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form>
+</div>
+<div class="container">
+    <div class="content">
+        <div class="title-container">
+            <h2 class="title">Title</h2>
+            <input type="text" class="document-name" placeholder="Enter the name of the document" [(ngModel)]="documentName" required>
+            <mat-error *ngIf="!form.controls['editorContent'].valid && form.controls['editorContent'].touched">The "Text" field is mandatory!</mat-error>
+        </div>
+
+        <form [formGroup]="form">
+            <div class="editor">
+                <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+                <ngx-editor [editor]="editor" formControlName="editorContent"></ngx-editor>
+            </div>
+        </form>
+    </div>
+</div>

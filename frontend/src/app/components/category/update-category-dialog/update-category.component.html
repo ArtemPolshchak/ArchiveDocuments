@@ -1,0 +1,19 @@
+<header class="header">
+    <h2 class="title">Update category</h2>
+</header>
+<mat-dialog-content>
+    <mat-card class="card-container">
+        <mat-card-content>
+            <mat-form-field class="input-field" appearance="outline">
+                <mat-label>Category</mat-label>
+                <input matInput [formControl]="categoryControl" />
+                <mat-error *ngIf="categoryControl.hasError('required')">The field is mandatory!</mat-error>
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
+</mat-dialog-content>
+<mat-dialog-actions align="start">
+    <button class="cancel-button" mat-button mat-dialog-close>Cancel</button>
+    <button class="save-button" mat-button (click)="updateCategory()" [disabled]="categoryControl.invalid">save</button>
+</mat-dialog-actions>
+

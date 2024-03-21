@@ -1,0 +1,64 @@
+<div>
+    <h1>Categories of Documents</h1>
+    <div class="search">
+        <div class="row">
+            <div class="col">
+                <input type="text" name="search" class="search-input" placeholder="Category name" matInput
+                       [(ngModel)]="name">
+            </div>
+            <div class="col-auto">
+                <input type="button" class="search-button" value="Search" (click)="applySearch()">
+            </div>
+        </div>
+        <div class="button" id="add_server">
+        </div>
+        <div>
+            <button *ngIf="isAdmin || isModerator" class="btn primary-button ms-2" (click)="openAddCategoryDialog()">Add</button>
+        </div>
+        <div>
+            <div class="d-flex">
+                <select class="form-select me-2" aria-label="Sort" [(ngModel)]="sortState"
+                        (change)="applySearch()">
+                    <option value="name,asc">Sorting from A to Z</option>
+                    <option value="name,desc">Sorting from Z to A</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="section">
+        <table>
+            <thead>
+            <tr>
+                <th>Category name</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let category of categories">
+                <td> {{ category.name }}</td>
+                <td>
+                    <button class="custom-button-history" (click)="goToDocumentsOfCurrentCategory(category.name)">
+                        Go to documents
+                    </button>
+                </td>
+                <td>
+                    <button *ngIf="isAdmin || isModerator" class="custom-button-history" (click)="editCategory(category)">Update</button>
+                </td>
+                <td>
+                    <button *ngIf="isAdmin || isModerator" class="custom-button-history" (click)="deleteCategory(category)">Remove</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div>
+    <mat-paginator [length]="totalElements"
+                   [pageSize]="pageSize"
+                   [pageSizeOptions]="[5, 10, 25, 100]"
+                   [showFirstLastButtons]="true"
+                   (page)="onPageChange($event)">
+    </mat-paginator>
+</div>

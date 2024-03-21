@@ -1,0 +1,23 @@
+<body>
+    <div>
+        <h1>Users</h1>
+            <div class="section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User email</th>
+                            <th>User name</th>
+                            <th>User role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let users of users">
+                            <td> {{ users.email }}</td>
+                            <td> {{ users.username }}</td>
+                            <td> {{ users.role }}</td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
